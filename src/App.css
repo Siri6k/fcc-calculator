@@ -1,0 +1,52 @@
+.keypad-container {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-gap: 10px;
+}
+
+.keypad {
+  height: 60px;
+  font-size: 1.5em;
+}
+
+#clear {
+  grid-column: span 2;
+}
+#zero {
+  grid-column: span 2;
+}
+#add {
+  grid-column: 4;
+  grid-row: 2;
+}
+
+#subtract {
+  grid-column: 4;
+  grid-row: 3;
+}
+
+#equals {
+  grid-column: 4;
+  grid-row: 4 / 6;
+  height: auto;
+}
+
+.display {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  padding: 10px;
+  background-color: #f1f1f1;
+  border-radius: 5px;
+  margin-bottom: 10px;
+  font-size: 1.2em;
+  color: #333;
+}
+
+.input {
+  min-height: 10px;
+}
+.output {
+  font-size: 1.5em;
+  color: #000;
+}
