@@ -59,23 +59,32 @@ class Calculator extends React.Component {
   };
 
   cleanOperators(expression) {
-    // Replace consecutive operators with the last operator, but keep the negative sign if it follows another operator
-    return expression.replace(
-      /([+\-*/])(?=[+\-*/])/g,
-      (match, p1, offset, string) => {
-        if (
-          p1 === "-" &&
-          (offset === 0 || /[+\-*/]/.test(string[offset - 1]))
-        ) {
-          return p1;
-        }
-        return "";
-      }
+    // Remplacer les signes successifs par les deux derniers signes
+    return (
+      expression
+        .replace(/\s+/g, "") // Remove all whitespace
+        //.replace(/([+\-*/])\1+/g, "$1$1") // Handle repeated operators
+        .replace(/([+\-*/]{2,})/g, (match) => match.slice(-2)) // Replace successive signs with the last two
+        .replace(/\+\-/g, "-")
+        .replace(/\+\+/g, "+")
+        .replace(/\-\+/g, "+")
+        .replace(/\-\-/g, "+")
+        .replace(/\*\-/g, "*-")
+        .replace(/\/\-/g, "/-")
+        .replace(/\+\//g, "/")
+        .replace(/\/\+/g, "/")
+        .replace(/\*\-\+/g, "+")
+        .replace(/\*+\+/g, "*")
+        .replace(/\/+\+/g, "/")
+        .replace(/\*+\-/g, "*-")
+        .replace(/\/+\-/g, "/-")
     );
   }
 
   calculateResult = (input) => {
+    console.log(input);
     const inputCleaned = this.cleanOperators(input);
+    console.log(inputCleaned);
     try {
       const result = Function('"use strict";return (' + inputCleaned + ")")();
       this.setState({ result });
